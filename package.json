@@ -7,6 +7,7 @@
     "lexer"
   ],
   "main": "bindings/node",
+  "types": "bindings/node",
   "repository": "https://github.com/ikatyang/tree-sitter-toml",
   "homepage": "https://github.com/ikatyang/tree-sitter-toml#readme",
   "author": {
@@ -16,10 +17,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "test": "yarn tree-sitter test",
-    "prepack": "yarn tree-sitter generate",
-    "release": "standard-version --commit-all",
-    "tree-sitter": "./tree-sitter/target/release/tree-sitter"
+    "install": "node-gyp-build",
+    "prestart": "tree-sitter build --wasm",
+    "start": "tree-sitter playground",
+    "test": "node --test bindings/node/*_test.js"
   },
   "standard-version": {
     "preset": "angular",
@@ -28,11 +29,21 @@
     }
   },
   "dependencies": {
-    "nan": "^2.14.0"
+    "node-addon-api": "^8.0.0",
+    "node-gyp-build": "^4.8.1"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.1"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "regexp-util": "1.2.2",
-    "standard-version": "7.0.0"
+    "standard-version": "7.0.0",
+    "prebuildify": "^6.0.1"
   },
   "files": [
     "/src/",
